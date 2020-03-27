@@ -119,4 +119,13 @@ public class EnterpriseController {
         return new Result(StatusCode.OK, true, "删除成功");
     }
 
+    /**
+     * 查询热门企业
+     * @return
+     */
+    @RequestMapping(value = "/search/hotlist",method = RequestMethod.GET)
+    public Result hotlist() {
+        List<Enterprise> enterpriseList = enterpriseService.hotlist();
+        return  new Result(StatusCode.OK,true,"查询成功",enterpriseList);
+    }
 }

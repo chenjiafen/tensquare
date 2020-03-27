@@ -165,5 +165,7 @@ public class EnterpriseService {
 		};
 
 	}
-
+	public List<Enterprise> hotlist(){
+		return  enterpriseDao.findByIshot("1");
+	}
 }

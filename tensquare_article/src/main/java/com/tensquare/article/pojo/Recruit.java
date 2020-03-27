@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * 实体类
+ * 实体类，招聘信息
  * @author Administrator
  *
  */
