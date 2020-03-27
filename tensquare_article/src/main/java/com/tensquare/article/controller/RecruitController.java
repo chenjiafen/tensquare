@@ -18,6 +18,7 @@ import com.tensquare.article.service.RecruitService;
 
 import entity.PageResult;
 import entity.Result;
+import sun.management.snmp.util.MibLogger;
 
 /**
  * 控制器层
@@ -83,7 +84,7 @@ public class RecruitController {
     @RequestMapping(value = "/{page}/{size}", method = RequestMethod.POST)
     public Result findSearch(@RequestBody Map searchMap, @PathVariable int page, @PathVariable int size) {
         Page<Recruit> pageList = recruitService.findSearch(searchMap, page, size);
-		return new Result(StatusCode.OK, true, "查询成功", new PageResult<Recruit>(pageList.getTotalElements(), pageList.getContent()));
+        return new Result(StatusCode.OK, true, "查询成功", new PageResult<Recruit>(pageList.getTotalElements(), pageList.getContent()));
     }
 
     /**
@@ -94,7 +95,7 @@ public class RecruitController {
     @RequestMapping(method = RequestMethod.POST)
     public Result add(@RequestBody Recruit recruit) {
         recruitService.add(recruit);
-		return new Result(StatusCode.OK, true, "增加成功");
+        return new Result(StatusCode.OK, true, "增加成功");
     }
 
     /**
@@ -106,7 +107,7 @@ public class RecruitController {
     public Result update(@RequestBody Recruit recruit, @PathVariable String id) {
         recruit.setId(id);
         recruitService.update(recruit);
-		return new Result(StatusCode.OK, true, "修改成功");
+        return new Result(StatusCode.OK, true, "修改成功");
     }
 
     /**
@@ -117,7 +118,17 @@ public class RecruitController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result delete(@PathVariable String id) {
         recruitService.deleteById(id);
-		return new Result(StatusCode.OK, true, "删除成功");
+        return new Result(StatusCode.OK, true, "删除成功");
     }
 
+    /**
+     * 查询状态为2并以创建日期降序排序，查询前4条记录
+     *
+     * @return
+     */
+    @RequestMapping(value = "/search/recommend", method = RequestMethod.GET)
+    public Result recommend() {
+        List<Recruit> recruits = recruitService.findTop4ByStateOrderByCreatetimeDesc("2");
+        return new Result(StatusCode.OK, true, "查询成功", recruits);
+    }
 }

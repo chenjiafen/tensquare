@@ -182,4 +182,13 @@ public class RecruitService {
 
 	}
 
+	/**
+	 * 根据状态查询
+	 * @param state
+	 * @return
+	 */
+	public List<Recruit> findTop4ByStateOrderByCreatetimeDesc(String state){
+
+		return recruitDao.findTop4ByStateOrderByCreatetimeDesc(state);
+	}
 }
