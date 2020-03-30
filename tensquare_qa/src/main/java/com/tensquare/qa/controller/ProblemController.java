@@ -1,4 +1,4 @@
-package com.tensquare.article.controller;
+package com.tensquare.qa.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -13,25 +13,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tensquare.article.pojo.Recruit;
-import com.tensquare.article.service.RecruitService;
+import com.tensquare.qa.pojo.Problem;
+import com.tensquare.qa.service.ProblemService;
 
 import entity.PageResult;
 import entity.Result;
-import sun.management.snmp.util.MibLogger;
 
 /**
  * 控制器层
  *
  * @author Administrator
+ * 问答
  */
 @RestController
 @CrossOrigin
-@RequestMapping("/recruit")
-public class RecruitController {
+@RequestMapping("/problem")
+public class ProblemController {
 
     @Autowired
-    private RecruitService recruitService;
+    private ProblemService problemService;
 
 
     /**
@@ -41,7 +41,7 @@ public class RecruitController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public Result findAll() {
-        return new Result(StatusCode.OK, true, "查询成功", recruitService.findAll());
+        return new Result(StatusCode.OK, true, "查询成功", problemService.findAll());
     }
 
     /**
@@ -52,8 +52,7 @@ public class RecruitController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Result findById(@PathVariable String id) {
-
-        return new Result(StatusCode.OK, true, "查询成功", recruitService.findById(id));
+        return new Result(StatusCode.OK, true, "查询成功", problemService.findById(id));
     }
 
 
@@ -66,10 +65,8 @@ public class RecruitController {
      */
     @RequestMapping(value = "/{page}/{size}", method = RequestMethod.GET)
     public Result findPage(@PathVariable int page, @PathVariable int size) {
-        Page<Recruit> pageList = recruitService.findPage(page, size);
-
-        return new Result(StatusCode.OK, true, "查询成功", new PageResult<Recruit>(pageList.getTotalElements(), pageList.getContent()));
-
+        Page<Problem> pageList = problemService.findPage(page, size);
+        return new Result(StatusCode.OK, true, "查询成功", new PageResult<Problem>(pageList.getTotalElements(), pageList.getContent()));
     }
 
 
@@ -83,30 +80,30 @@ public class RecruitController {
      */
     @RequestMapping(value = "/{page}/{size}", method = RequestMethod.POST)
     public Result findSearch(@RequestBody Map searchMap, @PathVariable int page, @PathVariable int size) {
-        Page<Recruit> pageList = recruitService.findSearch(searchMap, page, size);
-        return new Result(StatusCode.OK, true, "查询成功", new PageResult<Recruit>(pageList.getTotalElements(), pageList.getContent()));
+        Page<Problem> pageList = problemService.findSearch(searchMap, page, size);
+        return new Result(StatusCode.OK, true, "查询成功", new PageResult<Problem>(pageList.getTotalElements(), pageList.getContent()));
     }
 
     /**
      * 增加
      *
-     * @param recruit
+     * @param problem
      */
     @RequestMapping(method = RequestMethod.POST)
-    public Result add(@RequestBody Recruit recruit) {
-        recruitService.add(recruit);
+    public Result add(@RequestBody Problem problem) {
+        problemService.add(problem);
         return new Result(StatusCode.OK, true, "增加成功");
     }
 
     /**
      * 修改
      *
-     * @param recruit
+     * @param problem
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Result update(@RequestBody Recruit recruit, @PathVariable String id) {
-        recruit.setId(id);
-        recruitService.update(recruit);
+    public Result update(@RequestBody Problem problem, @PathVariable String id) {
+        problem.setId(id);
+        problemService.update(problem);
         return new Result(StatusCode.OK, true, "修改成功");
     }
 
@@ -117,30 +114,29 @@ public class RecruitController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result delete(@PathVariable String id) {
-        recruitService.deleteById(id);
+        problemService.deleteById(id);
         return new Result(StatusCode.OK, true, "删除成功");
     }
 
-    /**
-     * 推荐职位列表,需求分析：查询状态为2并以创建日期降序排序，查询前4条记录
-     * 查询状态为2并以创建日期降序排序，查询前4条记录
-     *
-     * @return
-     */
-    @RequestMapping(value = "/search/recommend", method = RequestMethod.GET)
-    public Result recommend() {
-        List<Recruit> recruits = recruitService.findTop4ByStateOrderByCreatetimeDesc("2");
-        return new Result(StatusCode.OK, true, "查询成功", recruits);
+    @RequestMapping(value = "/newlist/{labelid}/{page}/{size}", method = RequestMethod.GET)
+    public Result findNewListByLabelId(@PathVariable String labelid, @PathVariable int page, @PathVariable int size) {
+        Page<Problem> pageList =
+                problemService.findNewListByLabelId(labelid, page, size);
+        PageResult<Problem> pageResult = new PageResult<>
+                (pageList.getTotalElements(), pageList.getContent());
+        return new Result(StatusCode.OK, true, "查询成功", pageResult);
     }
 
-    /**
-     * 需求分析：查询状态不为0并以创建日期降序排序，查询前12条记录
-     */
-    @RequestMapping(value = "/search/newlist", method = RequestMethod.GET)
-
-    public Result findTop12NotState() {
-
-        List<Recruit> recruitList = recruitService.findTop12();
-        return new Result(StatusCode.OK, true, "查询成功", recruitList);
-    }
+	/**
+	 * 根据标签ID查询最新问题列表
+	 * @param labelid
+	 * @return
+	 */
+	@RequestMapping(value="/newlist/{labelid}/{page}/{size}",method=RequestMethod.GET)
+	public Result findNewListByLabelId(@PathVariable String labelid,@PathVariable Integer page,@PathVariable Integer size){
+		Page<Problem> pageList = problemService.findNewListByLabelId(labelid, page, size);
+		PageResult<Problem> pageResult = new PageResult<>
+				(pageList.getTotalElements(), pageList.getContent());
+		return new Result(StatusCode.OK, true, "查询成功",pageResult);
+	}
 }

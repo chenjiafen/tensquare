@@ -3,7 +3,16 @@
     <words>
       <w>hotlist</w>
       <w>ishot</w>
+      <w>jdbc</w>
+      <w>jobname</w>
+      <w>labelid</w>
       <w>labelname</w>
+      <w>newlist</w>
+      <w>problemid</w>
+      <w>replytime</w>
+      <w>resultset</w>
+      <w>sqlonly</w>
+      <w>sqltiming</w>
     </words>
   </dictionary>
 </component>

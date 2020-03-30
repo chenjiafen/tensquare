@@ -191,4 +191,10 @@ public class RecruitService {
 
 		return recruitDao.findTop4ByStateOrderByCreatetimeDesc(state);
 	}
+    /**
+     * 需求分析：查询状态不为0并以创建日期降序排序，查询前12条记录
+     */
+        public List<Recruit> findTop12(){
+            return  recruitDao.findTop12ByStateNotOrderByCreatetimeDesc("0");
+        }
 }
