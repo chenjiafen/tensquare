@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -93,7 +94,7 @@ public class ArticleService {
         // 如果缓存没有则到数据库查询并放入缓存
         if (article == null) {
             article = articleDao.findById(id).get();
-            redisTemplate.opsForValue().set("article_" + id, article);
+            redisTemplate.opsForValue().set("article_" + id, article,10, TimeUnit.SECONDS);//设置10s的过期时间
         }
         return article;
     }
