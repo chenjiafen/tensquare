@@ -105,8 +105,8 @@ public class LabelService {
             @Override
             public Predicate toPredicate(Root<Label> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicateList=new ArrayList<>();//保存后续拼装条件
-                //labelname(标签名)
-                if(!StringUtils.isEmpty(label.getLabelname())){
+                //labelname(标签名)!"".equals(searchMap.get("id")
+                if(!StringUtils.isEmpty(label.getLabelname())&&!"".equals(label.getLabelname())){
                    Predicate p= criteriaBuilder.like(root.get("labelname").as(String.class),label.getLabelname());
                     predicateList.add(p);
                 }

@@ -8,12 +8,16 @@
       <w>labelid</w>
       <w>labelname</w>
       <w>newlist</w>
+      <w>parentid</w>
       <w>problemid</w>
+      <w>publishtime</w>
       <w>replytime</w>
       <w>resultset</w>
+      <w>spitdb</w>
       <w>sqlonly</w>
       <w>sqltiming</w>
       <w>thumbup</w>
+      <w>userid</w>
     </words>
   </dictionary>
 </component>

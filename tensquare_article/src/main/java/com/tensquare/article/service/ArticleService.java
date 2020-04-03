@@ -142,7 +142,7 @@ public class ArticleService {
             @Override
             public Predicate toPredicate(Root<Article> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> predicateList = new ArrayList<Predicate>();
-                // ID
+                // ID,!"".equals(searchMap.get("id")配的的id不能为空
                 if (searchMap.get("id") != null && !"".equals(searchMap.get("id"))) {
                     predicateList.add(cb.like(root.get("id").as(String.class), "%" + (String) searchMap.get("id") + "%"));
                 }
