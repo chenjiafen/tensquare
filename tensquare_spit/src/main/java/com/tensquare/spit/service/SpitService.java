@@ -10,7 +10,7 @@ import util.IdWorker;
 import java.util.List;
 
 @Service
-@Transactional
+//@Transactional
 public class SpitService {
     @Autowired
     private SpitDao spitDao;
@@ -41,7 +41,7 @@ public class SpitService {
      * 新增
      * @param spit
      */
-    public void add(Spit spit){
+    public void save(Spit spit){
         spit.set_id(idWorker.nextId()+""); //设置主键
         spitDao.save(spit);
     }

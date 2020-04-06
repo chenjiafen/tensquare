@@ -1,8 +1,8 @@
 package com.tensquare.spit.dao;
 
 import com.tensquare.spit.pojo.Spit;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface SpitDao extends JpaRepository<Spit,String>, JpaSpecificationExecutor<Spit> {
+
+public interface SpitDao extends MongoRepository<Spit,String > {
 }
