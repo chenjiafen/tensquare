@@ -1,0 +1,9 @@
+server:
+  port: 9007
+spring:
+  application:
+    name: tensquare-search #指定服务名
+  data:
+    elasticsearch:
+      cluster-nodes: 192.168.203.131:9300
+      #elastic search配置错误，es与java交互的默认端口号是9300，与http交互的端口号是9200，两者不要搞错了
