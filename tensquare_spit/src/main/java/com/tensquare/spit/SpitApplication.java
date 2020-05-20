@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import util.IdWorker;
 
 @SpringBootApplication
-@EnableTransactionManagement
+//@EnableTransactionManagement
 public class SpitApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpitApplication.class, args);

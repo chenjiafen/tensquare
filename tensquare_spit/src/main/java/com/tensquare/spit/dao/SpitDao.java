@@ -1,8 +1,21 @@
 package com.tensquare.spit.dao;
 
 import com.tensquare.spit.pojo.Spit;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface SpitDao extends JpaRepository<Spit,String>, JpaSpecificationExecutor<Spit> {
+
+public interface SpitDao extends MongoRepository<Spit, String> {
+
+    /**
+     *  根据上级ID查询吐槽列表（分页）
+     *
+     * @param parentid
+     * @param
+     * @return
+     */
+    public Page<Spit> findByParentid(String parentid, Pageable pageable);
+
 }

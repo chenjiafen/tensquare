@@ -3,11 +3,10 @@ package com.tensquare.spit.pojo;
 import org.springframework.data.annotation.Id;
 
 
-import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Date;
-@Entity
-//@Table(name="spit")
+
+
 public class Spit implements Serializable {
     @Id
     private String _id;
